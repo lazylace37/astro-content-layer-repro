@@ -1,5 +1,8 @@
 ---
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
 
+const allBlogPosts = await getCollection("blog");
 ---
 
 <html lang="en">
@@ -11,6 +14,13 @@
 		<title>Astro</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+    <h1>
+      {allBlogPosts.map((post) => (
+        <div>
+          <h2>{post.id}</h2>
+          <Image src={post.data.image} alt="Logo" style="background-color: black;" />
+        </div>
+      ))}
+    </h1>
 	</body>
 </html>
